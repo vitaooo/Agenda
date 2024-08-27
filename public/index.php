@@ -7,5 +7,5 @@ $dados = $sql->fetchAll(PDO::FETCH_ASSOC);
 
 session_start();
 require '../vendor/autoload.php';
-require '../src/routes.php';
+require '../routes/web.php';
 $router->run( $router->routes );
