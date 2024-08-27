@@ -2,24 +2,29 @@
 
 namespace App\Core;
 
-use src\Config;
-
 class Database
 {
     private static $_pdo;
+    private static $config;
+
+    public function __construct()
+    {
+        if (self::$config === null) {
+            $this->config = include 'config/app.php';
+        }
+    }
+
     public static function getInstance()
     {
         if (!isset(self::$_pdo)) {
-            self::$_pdo = new \PDO(Config::DB_DRIVER . ':dbname=' . Config::DB_DATABASE . ';host=' . Config::DB_HOST, Config::DB_USER, Config::DB_PASS);
+            $config     = self::$config['db'];
+            self::$_pdo = new \PDO(
+                $config['driver'] . ':dbname=' . $config['database'] . ';host=' . $config['host'],
+                $config['user'],
+                $config['pass']
+            );
         }
 
         return self::$_pdo;
-    }
-
-    private function __construct()
-    {
-    }
-    private function __clone()
-    {
     }
 }

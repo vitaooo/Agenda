@@ -2,18 +2,23 @@
 
 namespace App\Core;
 
-use src\Config;
-
 class RouterBase
 {
+    private $config;
+
+    public function __construct()
+    {
+        $this->config = include 'config/app.php';
+    }
+
     public function run($routes)
     {
         $method = Request::getMethod();
         $url    = Request::getUrl();
 
         // Define os itens padrão
-        $controller = Config::ERROR_CONTROLLER;
-        $action     = Config::DEFAULT_ACTION;
+        $controller = $this->config->error_controller;
+        $action     = $this->config->default_action;
         $args       = [];
 
         if (isset($routes[$method])) {

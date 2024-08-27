@@ -2,14 +2,19 @@
 
 namespace App\Core;
 
-use src\Config;
-
 class Request
 {
+    private static $config;
+
+    public function __construct()
+    {
+        self::$config = include 'config/app.php';
+    }
+
     public static function getUrl()
     {
         $url = filter_input(INPUT_GET, 'request');
-        $url = str_replace(Config::BASE_DIR, '', $url);
+        $url = str_replace(self::$config['base_url'], '', $url);
 
         return '/' . $url;
     }

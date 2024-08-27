@@ -1,7 +1,7 @@
 <?php
 
 return (object) [
-    'base_dir' => '/agenda/public',
+    'base_url' => '/agenda/public',
     'db'       => [
         'driver'   => 'mysql',
         'host'     => 'localhost',
