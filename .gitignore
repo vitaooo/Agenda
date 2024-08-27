@@ -2,11 +2,7 @@
 composer.phar
 /vendor
 /vendor/
-
-### Environment ###
 .env
-
-### Storage ###
 /node_modules
 /public/build
 /public/hot
