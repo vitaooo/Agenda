@@ -4,21 +4,16 @@ namespace App\Core;
 
 class RouterBase
 {
-    private $config;
-
-    public function __construct()
-    {
-        $this->config = include 'config/app.php';
-    }
 
     public function run($routes)
     {
+        $config = Config::getInstance();
         $method = Request::getMethod();
         $url    = Request::getUrl();
 
         // Define os itens padrão
-        $controller = $this->config->error_controller;
-        $action     = $this->config->default_action;
+        $controller = $config->get('ERROR_CONTROLLER');
+        $action     = $config->get('ERROR_ACTION');
         $args       = [];
 
         if (isset($routes[$method])) {
@@ -55,7 +50,7 @@ class RouterBase
             }
         }
 
-        $controller        = "\src\controllers\\$controller";
+        $controller        = "App\Http\Controllers\\$controller";
         $definedController = new $controller();
 
         $definedController->$action($args);

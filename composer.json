@@ -19,6 +19,7 @@
         "friendsofphp/php-cs-fixer": "*"
     },
     "require": {
-        "clancats/hydrahon": "*"
+        "clancats/hydrahon": "*",
+        "vlucas/phpdotenv": "^5.6"
     }
 }

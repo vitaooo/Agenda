@@ -4,13 +4,6 @@ namespace App\Core;
 
 class Controller
 {
-    private $config;
-
-    public function __construct()
-    {
-        $this->config = include 'config/app.php';
-    }
-
     protected function redirect($url)
     {
         header('Location: ' . $this->getBaseUrl() . $url);
@@ -19,12 +12,13 @@ class Controller
 
     private function getBaseUrl()
     {
+        $config = Config::getInstance();
         $base = (isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) == 'on') ? 'https://' : 'http://';
         $base .= $_SERVER['SERVER_NAME'];
         if ($_SERVER['SERVER_PORT'] != '80') {
             $base .= ':' . $_SERVER['SERVER_PORT'];
         }
-        $base .= $this->config->base_url;
+        $base .= $config->get('BASE_DIR');
 
         return $base;
     }

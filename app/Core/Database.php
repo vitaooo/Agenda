@@ -5,23 +5,15 @@ namespace App\Core;
 class Database
 {
     private static $_pdo;
-    private static $config;
-
-    public function __construct()
-    {
-        if (self::$config === null) {
-            $this->config = include 'config/app.php';
-        }
-    }
 
     public static function getInstance()
     {
+        $config = Config::getInstance();
         if (!isset(self::$_pdo)) {
-            $config     = self::$config['db'];
             self::$_pdo = new \PDO(
-                $config['driver'] . ':dbname=' . $config['database'] . ';host=' . $config['host'],
-                $config['user'],
-                $config['pass']
+                $config->get('DB_DRIVER') . ':dbname=' . $config->get('DB_DATABASE') . ';host=' . $config->get('DB_HOST'),
+                $config->get('DB_USER'),
+                $config->get('DB_PASS')
             );
         }
 
